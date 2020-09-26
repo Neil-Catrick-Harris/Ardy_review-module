@@ -18,7 +18,7 @@ var generateSeedReviewData = function () {
     }
     for (var j = 0; j < numberOfReviews; j++) {
       var params = {
-        product_id: i,
+        product_id: i + 1,
         user: faker.internet.userName() + i,
         score: generateScore(),
         title: faker.lorem.words(),

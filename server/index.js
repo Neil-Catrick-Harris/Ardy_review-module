@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const Sequelize = require('sequelize');
 const sequelize = require('../db/index.js');
 
 const app = express();
@@ -9,8 +10,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', (req, res) => {
-  sequelize.query('SELECT * FROM reviews LIMIT 5').then((result) => {
-
+  return sequelize.query('SELECT * FROM reviews LIMIT 5', { type: Sequelize.QueryTypes.SELECT }).then((result) => {
+    console.log(result);
     res.send(result);
   })
 
