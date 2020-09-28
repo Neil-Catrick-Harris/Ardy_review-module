@@ -14,6 +14,14 @@ app.get('/', (req, res) => {
     console.log(result);
     res.send(result);
   })
+})
+
+app.get('/:productId', (req, res) => {
+
+  return sequelize.query(`SELECT * FROM reviews WHERE product_id = ${req.param('productId')}`, { type: Sequelize.QueryTypes.SELECT }).then((result) => {
+    console.log(result);
+    res.send(result);
+  })
 
 })
 
