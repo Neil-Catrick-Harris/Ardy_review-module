@@ -2,7 +2,13 @@ const Sequelize = require('sequelize');
 const sequelize = require('./index.js');
 
 const Review = sequelize.define('review', {
-  id: { type: Sequelize.INTEGER, autoIncrement: true, unique: true, allowNull: false, primaryKey: true },
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    unique: true,
+    allowNull: false,
+    primaryKey: true,
+  },
   product_id: { type: Sequelize.INTEGER, allowNull: false },
   user: { type: Sequelize.STRING, allowNull: false, unique: true },
   score: { type: Sequelize.INTEGER, allowNull: false },
