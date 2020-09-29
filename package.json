@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/hrr48-BlueJayWay/review#readme",
   "dependencies": {
+    "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "eslint": "^7.10.0",
     "eslint-loader": "^4.0.2",
