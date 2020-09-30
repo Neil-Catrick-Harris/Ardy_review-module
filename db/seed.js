@@ -21,7 +21,7 @@ const generateSeedReviewData = () => {
     for (let j = 0; j < numberOfReviews; j += 1) {
       const params = {
         product_id: i + 1,
-        user: faker.internet.userName() + i,
+        user: faker.internet.userName(),
         score: generateScore(),
         title: faker.lorem.words(),
         body: review,

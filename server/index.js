@@ -11,12 +11,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/../client/dist')));
 
-// add error handling
-app.get('/', (req, res) => sequelize.query('SELECT * FROM reviews LIMIT 5', { type: Sequelize.QueryTypes.SELECT })
-  .then((result) => res.send(result))
+// sequelize.query('SELECT * FROM reviews LIMIT 5', { type: Sequelize.QueryTypes.SELECT }
+app.get('/:productId', (req, res) => sequelize.query(`SELECT * FROM reviews WHERE product_id = ${req.param('productId')}`, { type: Sequelize.QueryTypes.SELECT })
+  .then((result) => res.sendFile(path.join(__dirname, '/../client/dist/index.html')))
   .catch((error) => res.send(error)));
 
-app.get('/:productId', (req, res) => sequelize.query(`SELECT * FROM reviews WHERE product_id = ${req.param('productId')}`, { type: Sequelize.QueryTypes.SELECT })
+app.get('/api/reviews/:productId', (req, res) => sequelize.query(`SELECT * FROM reviews WHERE product_id = ${req.param('productId')}`, { type: Sequelize.QueryTypes.SELECT })
   .then((result) => res.send(result))
   .catch((error) => res.send(error)));
 

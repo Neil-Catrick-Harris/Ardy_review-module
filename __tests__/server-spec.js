@@ -8,6 +8,7 @@ const server = require('../__mocks__/mockIndex.js');
 jest.mock('axios');
 
 describe('server responses', () => {
+  // need to fix tests
   it('should respond to a GET request with no param', (done) => {
     const { req, res } = server.mock('/', 'GET');
     axios.get.mockResolvedValue({ data: server.reviews });

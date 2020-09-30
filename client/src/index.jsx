@@ -5,11 +5,35 @@ import Modal from 'react-modal';
 
 const App = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  // need to get reviews from backend and calculate the average and display in form of stars
-  // need to check if review state is true
-  // populate reviews tab on the side
-  // main page for reviews is simple component, just a clickable element with ratings
-  return (<div>Hello World</div>);
+  const [reviews, setReviews] = useState([]);
+  const getAllReviews = () => {
+    const queryString = window.location.pathname;
+    axios.get('/').then(() => {
+      axios.get(`/api/reviews${queryString}`).then((response) => {
+        setReviews(response.data);
+      }).catch((error) => {
+        console.log('error getting reviews');
+      });
+    }).catch((error) => {
+      console.log('error loading index');
+    });
+  };
+
+  useEffect(() => {
+    getAllReviews();
+  }, []);
+
+  return (
+    <div>
+      Reviews:
+      <div>
+        Rating stars
+      </div>
+      <div>
+        Rating count
+      </div>
+    </div>
+  );
 };
 
 ReactDOM.render(<App />, document.getElementById('app'));

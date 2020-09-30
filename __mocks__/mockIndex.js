@@ -44,30 +44,6 @@ const Request = (url, method) => new Promise((resolve, reject) => {
 });
 
 const Response = () => {
-  // this._ended = false;
-  // this._responseCode = null;
-  // this._headers = null;
-  // this._data = Buffer.alloc(0);
-
-  // this.on = this.once = this.emit = ()=>{};
-
-  // this.writeHead = (responseCode, headers) => {
-  //   this._responseCode = responseCode;
-  //   this._headers = headers;
-  // };
-
-  // this.write = (data) => {
-  //   if (data) {
-  //     this._data = Buffer.concat([this._data, Buffer.from(data)]);
-  //   }
-  // };
-
-  // this.end = (data) => {
-  //   this._ended = true;
-  //   if (data) {
-  //     this._data = Buffer.concat([this._data, Buffer.from(data)]);
-  //   }
-  // };
 };
 
 module.exports = {
