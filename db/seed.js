@@ -1,25 +1,27 @@
-const sequelize = require('./index.js');
+require('./index.js');
+const faker = require('faker');
 const Review = require('./Review.js');
 const Response = require('./Response.js');
-const faker = require('faker');
 
 Review.hasOne(Response);
 Response.belongsTo(Review);
 
-var generateSeedReviewData = function () {
-  var data = [];
-  for (var i = 0; i < 100; i++) {
+const generateScore = () => Math.ceil(Math.random() * 5);
+
+const generateSeedReviewData = () => {
+  const data = [];
+  for (let i = 0; i < 100; i += 1) {
     // randomly generate between 15 and 25 reviews per product
-    var numberOfReviews = Math.floor(Math.random() * 10) + 15;
-    var review = faker.lorem.paragraph();
-    //console.log(typeof review);
+    const numberOfReviews = Math.floor(Math.random() * 10) + 15;
+    let review = faker.lorem.paragraph();
+    // console.log(typeof review);
     if (review.length > 255) {
       review = review.slice(0, 255);
     }
-    for (var j = 0; j < numberOfReviews; j++) {
-      var params = {
+    for (let j = 0; j < numberOfReviews; j += 1) {
+      const params = {
         product_id: i + 1,
-        user: faker.internet.userName() + i,
+        user: faker.internet.userName(),
         score: generateScore(),
         title: faker.lorem.words(),
         body: review,
@@ -29,60 +31,49 @@ var generateSeedReviewData = function () {
         ease: generateScore(),
         value: generateScore(),
         quality: generateScore(),
-        appearance: generateScore()
-      }
+        appearance: generateScore(),
+      };
       data.push(params);
     }
   }
   return data;
-}
+};
 
-var generateSeedResponseData = function() {
-  var data = [];
-  for (var i = 0; i < 100; i++) {
-    var response = faker.lorem.paragraph();
+const generateSeedResponseData = () => {
+  const data = [];
+  for (let i = 0; i < 100; i += 1) {
+    let response = faker.lorem.paragraph();
     if (response.length > 255) {
       response = response.slice(0, 255);
     }
-    var params = {
+    const params = {
       reviewId: i + 1,
       responder: faker.name.firstName(),
       response_date: faker.date.past(),
-      response_body: response
-    }
+      response_body: response,
+    };
     data.push(params);
   }
 
   return data;
-}
+};
 
+const insertSeedData = () => {
+  const reviewData = generateSeedReviewData();
+  const responseData = generateSeedResponseData();
 
-var generateScore = function() {
-  return Math.ceil(Math.random() * 5);
-}
-
-var insertSeedData = function() {
-  var reviewData = generateSeedReviewData();
-  var responseData = generateSeedResponseData();
-
-  Review.sync({force: true})
-  .then(function() {
-    return Review.bulkCreate(reviewData)
-  })
-  .then(function() {
-    Response.sync({force: true})
-    .then(function() {
-      return Response.bulkCreate(responseData)
-    })
-    .catch(function(err) {
-      console.log("ERRORED")
+  Review.sync({ force: true })
+    .then(() => Review.bulkCreate(reviewData))
+    .then(() => Response.sync({ force: true })
+      .then(() => Response.bulkCreate(responseData))
+      .catch((err) => {
+        console.log('ERRORED');
+        console.log(err);
+      }))
+    .catch((err) => {
+      console.log('ERRORED');
       console.log(err);
-    })
-  })
-  .catch(function(err) {
-    console.log("ERRORED")
-    console.log(err);
-  })
-}
+    });
+};
 
 insertSeedData();
