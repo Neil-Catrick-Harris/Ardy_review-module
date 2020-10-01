@@ -27,14 +27,12 @@ const App = (props) => {
 
   const eventHandler = (event) => {
     event.preventDefault();
-    const val = event.target.value;
-    console.log(val);
+    setIsOpen(!modalIsOpen);
   };
 
   return (
     <div>
       <Review reviews={reviews} eventHandler={eventHandler} />
-      {/* <Modal /> */}
     </div>
   );
 };

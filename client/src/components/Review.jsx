@@ -13,7 +13,6 @@ const Review = ({ reviews = [], eventHandler = () => {} }) => {
     reviews.forEach((review) => { sum += review.score; });
     return sum / reviews.length;
   };
-  // getReviewAverage();
 
   return (
     <div className="review-block">

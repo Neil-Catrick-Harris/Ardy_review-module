@@ -13,9 +13,10 @@ app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
 app.get('/:productId', (req, res) => res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html')));
 
-app.get('/api/reviews/:productId', (req, res) => sequelize.query(`SELECT * FROM reviews WHERE product_id = ${req.param('productId')}`, { type: Sequelize.QueryTypes.SELECT })
-  .then((result) => res.send(result))
-  .catch((error) => res.send(error)));
+app.get('/api/reviews/:productId',
+  (req, res) => sequelize.query(`SELECT * FROM reviews WHERE product_id = ${req.param('productId')}`, { type: Sequelize.QueryTypes.SELECT })
+    .then((result) => res.send(result))
+    .catch((error) => res.send(error)));
 
 app.listen(port, () => { console.log(`listening on port ${port}`); });
 
