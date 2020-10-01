@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Modal from 'react-modal';
+import Review from './components/Review.jsx';
+import Modal from './components/ReviewModal.jsx';
 
 const App = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [reviews, setReviews] = useState([]);
+
   const getAllReviews = () => {
     const queryString = window.location.pathname;
     axios.get('/').then(() => {
@@ -23,15 +25,14 @@ const App = (props) => {
     getAllReviews();
   }, []);
 
+  const eventHandler = (event) => {
+    event.preventDefault();
+    setIsOpen(!modalIsOpen);
+  };
+
   return (
     <div>
-      Reviews:
-      <div>
-        Rating stars
-      </div>
-      <div>
-        Rating count
-      </div>
+      <Review reviews={reviews} eventHandler={eventHandler} />
     </div>
   );
 };

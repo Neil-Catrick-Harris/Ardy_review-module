@@ -18,7 +18,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        include: path.join(__dirname, '/client/src'),
+        include: path.join(__dirname, '/client'),
         use: {
           loader: 'babel-loader',
           options: {
