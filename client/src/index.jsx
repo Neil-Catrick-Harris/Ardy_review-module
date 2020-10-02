@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Review from './components/Review.jsx';
-import Modal from './components/ReviewModal.jsx';
+import ReviewModal from './components/ReviewModal.jsx';
 
 const App = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -33,6 +33,7 @@ const App = (props) => {
   return (
     <div>
       <Review reviews={reviews} eventHandler={eventHandler} />
+      { modalIsOpen ? <ReviewModal review={reviews} /> : <div /> }
     </div>
   );
 };
