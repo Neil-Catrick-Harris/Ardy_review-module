@@ -17,10 +17,11 @@ const Review = sequelize.define('review', {
   recommend: { type: Sequelize.BOOLEAN, allowNull: false },
   date: { type: Sequelize.DATE, allowNull: false },
   response_id: { type: Sequelize.INTEGER },
-  ease: { type: Sequelize.INTEGER, allowNull: false },
-  value: { type: Sequelize.INTEGER, allowNull: false },
-  quality: { type: Sequelize.INTEGER, allowNull: false },
-  appearance: { type: Sequelize.INTEGER, allowNull: false },
+  ease: { type: Sequelize.INTEGER },
+  value: { type: Sequelize.INTEGER },
+  quality: { type: Sequelize.INTEGER },
+  appearance: { type: Sequelize.INTEGER },
+  works: { type: Sequelize.INTEGER },
 });
 
 module.exports = Review;

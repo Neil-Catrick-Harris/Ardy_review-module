@@ -8,13 +8,31 @@ Response.belongsTo(Review);
 
 const generateScore = () => Math.ceil(Math.random() * 5);
 
+const generateReviewScores = () => {
+  const subset = ['ease', 'value', 'quality', 'appearance', 'works'];
+  const subsetScores = {
+    ease: generateScore(),
+    value: generateScore(),
+    quality: generateScore(),
+    appearance: generateScore(),
+    works: generateScore(),
+  };
+
+  if (Math.random() <= 0.75) {
+    const index = Math.ceil(Math.random() * subset.length);
+    const subsetName = subset[index];
+    subsetScores[subsetName] = 0;
+  }
+  return subsetScores;
+};
+
 const generateSeedReviewData = () => {
   const data = [];
   for (let i = 0; i < 100; i += 1) {
     // randomly generate between 15 and 25 reviews per product
     const numberOfReviews = Math.floor(Math.random() * 10) + 15;
+    const subsetScores = generateReviewScores();
     let review = faker.lorem.paragraph();
-    // console.log(typeof review);
     if (review.length > 255) {
       review = review.slice(0, 255);
     }
@@ -28,10 +46,11 @@ const generateSeedReviewData = () => {
         recommend: Math.random() >= 0.5,
         date: faker.date.past(),
         response_id: j === 0 ? i : null,
-        ease: generateScore(),
-        value: generateScore(),
-        quality: generateScore(),
-        appearance: generateScore(),
+        ease: subsetScores.ease,
+        value: subsetScores.value,
+        quality: subsetScores.quality,
+        appearance: subsetScores.appearance,
+        works: subsetScores.works,
       };
       data.push(params);
     }
