@@ -8,7 +8,6 @@ const Review = ({ reviews = [], eventHandler = () => {} }) => {
     if (reviews.length === 0) {
       return 0;
     }
-    console.log(reviews);
     let sum = 0;
     reviews.forEach((review) => { sum += review.score; });
     return sum / reviews.length;
