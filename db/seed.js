@@ -32,6 +32,7 @@ const generateSeedReviewData = () => {
         value: generateScore(),
         quality: generateScore(),
         appearance: generateScore(),
+        works: generateScore(),
       };
       data.push(params);
     }
