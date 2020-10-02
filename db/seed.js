@@ -31,12 +31,12 @@ const generateSeedReviewData = () => {
   for (let i = 0; i < 100; i += 1) {
     // randomly generate between 15 and 25 reviews per product
     const numberOfReviews = Math.floor(Math.random() * 10) + 15;
-    const subsetScores = generateReviewScores();
     let review = faker.lorem.paragraph();
     if (review.length > 255) {
       review = review.slice(0, 255);
     }
     for (let j = 0; j < numberOfReviews; j += 1) {
+      const subsetScores = generateReviewScores();
       const params = {
         product_id: i + 1,
         user: faker.internet.userName(),
