@@ -33,7 +33,6 @@ const reviewModal = ({ reviews }) => {
       display: 'flex',
       position: 'relative',
       width: '200px',
-      // border: '1px black solid',
       backgroundColor: 'white',
       justifyContent: 'space-evenly',
       alignItems: 'center',
@@ -41,7 +40,6 @@ const reviewModal = ({ reviews }) => {
 
     const percentBarStyle = {
       backgroundColor: 'black',
-      // border: '1 px white solid',
       width: `${avg}%`,
       height: '100%',
       position: 'absolute',
