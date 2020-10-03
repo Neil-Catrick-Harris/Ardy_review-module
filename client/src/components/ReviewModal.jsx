@@ -27,14 +27,48 @@ const reviewModal = ({ reviews }) => {
     />
   );
 
-  const getReviewScoreBar = (name) => {
-    const avg = Number(getReviewAverageForParam(name)) * 20;
+  const ReviewScoreBar = ({ param }) => {
+    const avg = Number(getReviewAverageForParam(param)) * 20;
+    const mainBarStyle = {
+      display: 'flex',
+      position: 'relative',
+      width: '200px',
+      // border: '1px black solid',
+      backgroundColor: 'white',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+    };
+
+    const percentBarStyle = {
+      backgroundColor: 'black',
+      // border: '1 px white solid',
+      width: `${avg}%`,
+      height: '100%',
+      position: 'absolute',
+      left: '0',
+    };
+
     return (
       // <Progress completed={avg} className="score-full-bar" />
-      <div className="score-full-bar">
-        <div className="score-percent-bar" />
+      <div className="review-score-bar" style={mainBarStyle}>
+        <div className="review-score-progress-bar" style={percentBarStyle} />
+        <ReviewBarDots />
+        <ReviewBarDots />
+        <ReviewBarDots />
+        <ReviewBarDots />
       </div>
     );
+  };
+
+  const ReviewBarDots = () => {
+    const style = {
+      width: '0.875rem',
+      height: '0.875rem',
+      borderRadius: '50%',
+      backgroundColor: 'white',
+      zIndex: '1',
+    };
+    return (<div style={style} />);
   };
 
   const reviewsAverage = Number(getReviewAverageForParam('score'));
@@ -43,13 +77,19 @@ const reviewModal = ({ reviews }) => {
     let average;
     if (param === 'score') {
       average = reviewsAverage;
-    } else {
-      average = Number(getReviewAverageForParam(param));
+      return (
+        <div className="rating-mini-component">
+          <span>{ title }</span>
+          <span>{ getReviewStars(average) }</span>
+          <span>{ average }</span>
+        </div>
+      );
     }
+    average = Number(getReviewAverageForParam(param));
     return (
-      <div>
+      <div className="rating-mini-component">
         <span>{ title }</span>
-        <span>{ getReviewStars(average) }</span>
+        <ReviewScoreBar param={param} />
         <span>{ average }</span>
       </div>
     );
