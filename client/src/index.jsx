@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+// import Modal from 'react-modal';
 import ReviewMain from './components/ReviewMain.jsx';
 import ReviewModal from './components/ReviewModal.jsx';
 
@@ -25,15 +26,29 @@ const App = (props) => {
     getAllReviews();
   }, []);
 
-  const eventHandler = (event) => {
-    event.preventDefault();
-    setIsOpen(!modalIsOpen);
+  const showModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+
+  const clickHandler = (event) => {
+    if (event.target.className.includes('display-block')) {
+      handleCloseModal();
+    }
   };
 
   return (
-    <div>
-      <ReviewMain reviews={reviews} eventHandler={eventHandler} />
-      { modalIsOpen ? <ReviewModal reviews={reviews} /> : <div /> }
+    <div className="main">
+      <ReviewMain reviews={reviews} showModal={showModal} />
+      <ReviewModal
+        show={modalIsOpen}
+        reviews={reviews}
+        closeModal={handleCloseModal}
+        clickHandler={clickHandler}
+      />
     </div>
   );
 };

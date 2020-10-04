@@ -1,9 +1,9 @@
-import { FaAngleRight } from 'react-icons/fa';
 import React, { useState, useEffect } from 'react';
+import { FaAngleRight } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import StarRatings from 'react-star-ratings';
 
-const ReviewMain = ({ reviews = [], eventHandler = () => {} }) => {
+const ReviewMain = ({ reviews = [], showModal = () => {} }) => {
   const getReviewAverage = () => {
     if (reviews.length === 0) {
       return 0;
@@ -14,7 +14,7 @@ const ReviewMain = ({ reviews = [], eventHandler = () => {} }) => {
   };
 
   return (
-    <div className="review-block" onClick={(e) => eventHandler(e)} onKeyPress={(e) => eventHandler(e)} role="button" tabIndex="0">
+    <div className="review-block" onClick={showModal}>
       <span className="review">
         <div className="review-title">Reviews</div>
         <StarRatings
@@ -42,7 +42,7 @@ const ReviewMain = ({ reviews = [], eventHandler = () => {} }) => {
 ReviewMain.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   reviews: PropTypes.array.isRequired,
-  eventHandler: PropTypes.func.isRequired,
+  showModal: PropTypes.func.isRequired,
 };
 
 export default ReviewMain;
