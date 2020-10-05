@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BsX } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import StarRatings from 'react-star-ratings';
-import Review from './review.jsx';
+import Review from './Review.jsx';
 
 const reviewModal = ({ reviews, show, closeModal, clickHandler }) => {
   const showHide = show ? 'modal display-block' : 'modal display-none';

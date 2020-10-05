@@ -1,4 +1,4 @@
-require('./index.js');
+const test = require('./index.js');
 const faker = require('faker');
 const Review = require('./Review.js');
 const Response = require('./Response.js');
