@@ -74,7 +74,7 @@ const reviewModal = ({ reviews, show, closeModal, clickHandler }) => {
         </div>
       );
     }
-    average = Number(getReviewAverageForParam(param));
+    average = Number(getReviewAverageForParam(param)).toFixed(1);
     return (
       <div className="rating-mini-component">
         <span className="mini-component-blurb">{ title }</span>
