@@ -1,5 +1,8 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./index.js');
+const dotenv = require('dotenv');
+
+dotenv.config();
+const sequelize = new Sequelize('user_reviews', `${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`, { dialect: 'mysql', dialectOptions: { multipleStatements: true } });
 
 const Response = sequelize.define('response', {
   id: {

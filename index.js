@@ -2,7 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Sequelize = require('sequelize');
-const sequelize = require('./db/index.js');
+const dotenv = require('dotenv');
+
+dotenv.config();
+const sequelize = new Sequelize('user_reviews', `${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`, { dialect: 'mysql', dialectOptions: { multipleStatements: true } });
 
 const app = express();
 const port = process.env.PORT;

@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-mysql.createConnection({
+const connection = mysql.createConnection({
   user: `${process.env.DB_USERNAME}`,
   password: `${process.env.DB_PASSWORD}`,
 }).then((db) => {
@@ -13,6 +13,4 @@ mysql.createConnection({
   });
 });
 
-const sequelize = new Sequelize('user_reviews', `${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`, { dialect: 'mysql', dialectOptions: { multipleStatements: true } });
-
-module.exports = sequelize;
+module.exports = connection;
