@@ -1,5 +1,5 @@
-const test = require('./index.js');
 const faker = require('faker');
+const database = require('./index.js');
 const Review = require('./Review.js');
 const Response = require('./Response.js');
 
