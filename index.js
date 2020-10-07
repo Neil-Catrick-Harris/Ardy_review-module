@@ -13,8 +13,14 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
-app.get('/:productId', (req, res) => res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html')));
+app.get('/:productId', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
+});
 
 app.get('/api/reviews/:productId',
   (req, res) => sequelize.query(`SELECT * FROM reviews WHERE product_id = ${req.param('productId')} ORDER BY date DESC`, { type: Sequelize.QueryTypes.SELECT })

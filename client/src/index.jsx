@@ -5,20 +5,16 @@ import axios from 'axios';
 import ReviewMain from './components/ReviewMain.jsx';
 import ReviewModal from './components/ReviewModal.jsx';
 
-const App = (props) => {
+const ReviewModule = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [reviews, setReviews] = useState([]);
 
   const getAllReviews = () => {
     const queryString = window.location.pathname;
-    axios.get('/').then(() => {
-      axios.get(`/api/reviews${queryString}`).then((response) => {
-        setReviews(response.data);
-      }).catch((error) => {
-        console.log('error getting reviews');
-      });
+    axios.get(`http://localhost:3003/api/reviews${queryString}`).then((response) => {
+      setReviews(response.data);
     }).catch((error) => {
-      console.log('error loading index');
+      console.log('error getting reviews');
     });
   };
 
@@ -59,4 +55,4 @@ const App = (props) => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<ReviewModule />, document.getElementById('review-module'));
