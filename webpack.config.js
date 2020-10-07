@@ -5,7 +5,7 @@ module.exports = {
   entry: `${__dirname}/client/src/index.jsx`,
   output: {
     path: path.join(__dirname, '/client/dist'),
-    filename: 'review-bundle.js',
+    filename: 'bundle.js',
   },
   module: {
     rules: [
