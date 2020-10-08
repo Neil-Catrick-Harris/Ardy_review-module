@@ -2,6 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { FaAngleRight } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import StarRatings from 'react-star-ratings';
+import styled from 'styled-components';
+import {
+  ScoreBar,
+  Count,
+} from '../ReviewModalStyling.jsx';
+
+const ReviewTabTitle = styled.div`
+  font-weight: bold;
+`;
+
+const ReviewTab = styled.div`
+  align-items: center;
+  border-top: 1px solid #f5f5f5;
+  font-size: 16px;
+  width: 100%;
+  height: auto;
+  padding: 20px 0;
+  &:hover ${ReviewTabTitle}{
+    text-decoration: underline;
+  };
+`;
+
+const StyledFaAngleRight = styled(FaAngleRight)`
+  width: auto;
+  float: right;
+  position: relative;
+  size: 1.25em;
+`;
+
+// on hover underline (check styled-component refs)
+// .review-block:hover .review-title {
+//   text-decoration: underline;
+// }
 
 const ReviewMain = ({ reviews = [], showModal = () => {} }) => {
   const getReviewAverage = () => {
@@ -14,9 +47,9 @@ const ReviewMain = ({ reviews = [], showModal = () => {} }) => {
   };
 
   return (
-    <div className="review-block" onClick={showModal}>
-      <span className="review">
-        <div className="review-title">Reviews</div>
+    <ReviewTab onClick={showModal}>
+      <span>
+        <ReviewTabTitle>Reviews</ReviewTabTitle>
         <StarRatings
           rating={Number(getReviewAverage())}
           starRatedColor="black"
@@ -26,16 +59,16 @@ const ReviewMain = ({ reviews = [], showModal = () => {} }) => {
           svgIconPath="M12.003 4L14.8623 8.9091L20.4147 10.1115L16.6294 14.3478L17.2017 20L12.003 17.7091L6.80429 20L7.37657 14.3478L3.59131 10.1115L9.14371 8.9091L12.003 4Z"
           svgIconViewBox="0 0 24 24"
         />
-        <span className="count">
+        <Count>
           (
           {
             reviews.length
           }
           )
-        </span>
+        </Count>
       </span>
-      <FaAngleRight className="fa-right-angle" size="1.25em" />
-    </div>
+      <StyledFaAngleRight />
+    </ReviewTab>
   );
 };
 

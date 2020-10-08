@@ -3,6 +3,49 @@ import Moment from 'moment';
 import { BsX } from 'react-icons/bs';
 import { BiCheck } from 'react-icons/bi';
 import StarRatings from 'react-star-ratings';
+import styled from 'styled-components';
+import {
+  RatingModalComponent,
+  RatingModalComponentBlurb,
+  RatingModalComponentRatingBar,
+  RatingModalComponentRatingNumber,
+  ReviewModalSpacing,
+  ReviewScoreProgressBar,
+  ScoreBar,
+  Dot,
+  Count,
+} from '../ReviewModalStyling.jsx';
+
+export const UserReview = styled.div`
+  align-items: center;
+  border-top: 1px solid #f5f5f5;
+  font-size: 16px;
+  width: 100%;
+  height: auto;
+  padding: 20px 0;
+`;
+
+const ReviewTitle = styled.div`
+  font-weight: 700;
+  padding-bottom: 0.625rem;
+`;
+
+const UserReviewHeader = styled.div`
+  font-size: 0.75rem;
+  margin-bottom: 30px!important;
+`;
+
+const UserReviewInfo = styled.span`
+  float: right;
+`;
+
+const StyledBsX = styled(BsX)`
+  padding-right: 5px;
+`;
+
+const StyledBiCheck = styled(BiCheck)`
+  padding-right: 5px;
+`;
 
 const Review = ({ review }) => {
   const getAvailableRatings = () => {
@@ -24,7 +67,7 @@ const Review = ({ review }) => {
 
     const miniComponents = [];
     ratingParams.forEach((param) => miniComponents.push(
-      <RatingMiniComponents key={review.id + param} title={paramTitle[param]} param={param} />,
+      <RatingMiniComponent key={review.id + param} title={paramTitle[param]} param={param} />,
     ));
 
     return <div>{miniComponents}</div>;
@@ -43,97 +86,67 @@ const Review = ({ review }) => {
   );
 
   const ReviewScoreBar = ({ param }) => {
-    const percentBarStyle = {
-      backgroundColor: 'black',
-      width: `${review[param] * 20}%`,
-      height: '0.5rem',
-      position: 'absolute',
-      left: '0',
-    };
-
+    const val = review[param] * 20;
     return (
-      <div className="review-score-bar">
-        <div className="review-score-progress-bar" style={percentBarStyle} />
-        <ReviewBarDots />
-        <ReviewBarDots />
-        <ReviewBarDots />
-        <ReviewBarDots />
-      </div>
+      <ScoreBar>
+        <ReviewScoreProgressBar value={val} />
+        <Dot />
+        <Dot />
+        <Dot />
+        <Dot />
+      </ScoreBar>
     );
   };
 
-  const ReviewBarDots = () => {
-    const style = {
-      width: '0.25rem',
-      height: '0.25rem',
-      borderRadius: '50%',
-      backgroundColor: 'white',
-      zIndex: '1',
-    };
-    return (<div style={style} />);
-  };
-
-  const RatingMiniComponents = ({ title, param }) => {
-    let average;
-    if (param === 'score') {
-      return (
-        <div className="rating-mini-component">
-          <span className="mini-component-blurb">{ title }</span>
-          <span className="mini-component-rating-bar">{ getReviewStars(review[param]) }</span>
-          <span className="mini-component-rating-number">{ average }</span>
-        </div>
-      );
-    }
-    return (
-      <div className="rating-mini-component">
-        <span className="mini-component-blurb">{ title }</span>
-        <ReviewScoreBar param={param} />
-        <span className="mini-component-rating-number">{ review[param] }</span>
-      </div>
-    );
-  };
+  const RatingMiniComponent = ({ title, param }) => (
+    <RatingModalComponent>
+      <RatingModalComponentBlurb>{ title }</RatingModalComponentBlurb>
+      <ReviewScoreBar param={param} />
+      <RatingModalComponentRatingNumber>{ review[param] }</RatingModalComponentRatingNumber>
+    </RatingModalComponent>
+  );
 
   const recommendBlurb = () => {
     if (review.recommend) {
       return (
-        <div className="review-modal-spacing user-review-header">
-          <BiCheck style={{ paddingRight: '5px' }} />
+        <UserReviewHeader>
+          <StyledBiCheck />
           Yes, I recommend this product
-        </div>
+        </UserReviewHeader>
       );
     }
     return (
-      <div className="review-modal-spacing user-review-header">
-        <BsX style={{ paddingRight: '5px' }} />
+      <UserReviewHeader>
+        <StyledBsX />
         No, I don&apos;t recommend this product
-      </div>
+      </UserReviewHeader>
     );
   };
 
   return (
-    <div className="review-block">
-      <div className="review-modal-spacing user-review-header">
+    <UserReview>
+      <UserReviewHeader>
         <span>
           { getReviewStars(review.score) }
           {' '}
         </span>
-        <span className="user-review-info">
-          {review.user}
+        <UserReviewInfo>
+          { review.user }
           {' '}
           -
           {' '}
-          {Moment(review.date).format('MM/DD/YYYY')}
-        </span>
-      </div>
-      <div className="review-modal-title">{review.title}</div>
-      <div className="review-modal-spacing">{review.body}</div>
+          { Moment(review.date).format('MM/DD/YYYY') }
+        </UserReviewInfo>
+      </UserReviewHeader>
+      <ReviewTitle>{ review.title }</ReviewTitle>
+      <ReviewModalSpacing>{ review.body }</ReviewModalSpacing>
       {
         recommendBlurb()
       }
       {
         getAvailableRatings()
       }
-    </div>
+    </UserReview>
   );
 };
 
