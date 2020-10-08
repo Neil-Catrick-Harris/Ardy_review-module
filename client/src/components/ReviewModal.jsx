@@ -2,10 +2,85 @@ import React, { useState, useEffect } from 'react';
 import { BsX } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import StarRatings from 'react-star-ratings';
+import styled from 'styled-components';
 import Review from './Review.jsx';
+import {
+  RatingModalComponent,
+  RatingModalComponentBlurb,
+  RatingModalComponentRatingBar,
+  RatingModalComponentRatingNumber,
+  ReviewModalSpacing,
+  ReviewScoreProgressBar,
+  ScoreBar,
+  Dot,
+  Count,
+} from '../ReviewModalStyling.jsx';
+
+const ReviewModal = styled.div`
+  width: 500px;
+  height: auto;
+  position: absolute;
+  right: 0;
+  transform: translate(0, 0);
+  background-color: white;
+`;
+
+const ReviewModalBody = styled.div`
+  overflow-y: scroll;
+  height: 84vh;
+  color: #484848;
+  padding: 30px 50px 40px 50px;
+`;
+
+const ReviewModalClose = styled.div`
+  height: 35px;
+  padding: 25px 37px 25px 37px;
+`;
+
+const ReviewModalCloseCircle = styled.div`
+  width: 35px;
+  height: 35px;
+  float: right;
+  display: flex;
+  border-radius: 50%;
+  background-color: white;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: lightgrey;
+  };
+`;
+
+const ReviewModalTitle = styled.div`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 30px!important;
+`;
+
+const ReviewModalAverageScore = styled.div`
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: black;
+`;
+
+const StyledBsX = styled(BsX)`
+  position: absolute;
+  size: 1.25em;
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  display: ${(props) => props.show ? 'block' : 'none'};
+`;
 
 const reviewModal = ({ reviews, show, closeModal, clickHandler }) => {
-  const showHide = show ? 'modal display-block' : 'modal display-none';
   const getReviewAverageForParam = (param) => {
     if (reviews.length === 0) {
       return 0;
@@ -30,92 +105,78 @@ const reviewModal = ({ reviews, show, closeModal, clickHandler }) => {
   const ReviewScoreBar = ({ param }) => {
     const avg = Number(getReviewAverageForParam(param)) * 20;
 
-    const percentBarStyle = {
-      backgroundColor: 'black',
-      width: `${avg}%`,
-      height: '0.5rem',
-      position: 'absolute',
-      left: '0',
-    };
-
     return (
-      <div className="review-score-bar">
-        <div className="review-score-progress-bar" style={percentBarStyle} />
-        <ReviewBarDots />
-        <ReviewBarDots />
-        <ReviewBarDots />
-        <ReviewBarDots />
-      </div>
+      <ScoreBar>
+        <ReviewScoreProgressBar value={avg} />
+        <Dot />
+        <Dot />
+        <Dot />
+        <Dot />
+      </ScoreBar>
     );
-  };
-
-  const ReviewBarDots = () => {
-    const style = {
-      width: '0.25rem',
-      height: '0.25rem',
-      borderRadius: '50%',
-      backgroundColor: 'white',
-      zIndex: '1',
-    };
-    return (<div style={style} />);
   };
 
   const reviewsAverage = Number(getReviewAverageForParam('score'));
 
-  const RatingMiniComponents = ({ title, param }) => {
+  const RatingMiniComponent = ({ title, param }) => {
     let average;
     if (param === 'score') {
       average = reviewsAverage;
       return (
-        <div className="rating-mini-component">
-          <span className="mini-component-blurb">{ title }</span>
-          <span className="mini-component-rating-bar">{ getReviewStars(average) }</span>
-          <span className="mini-component-rating-number">{ average }</span>
-        </div>
+        <RatingModalComponent>
+          <RatingModalComponentBlurb>{ title }</RatingModalComponentBlurb>
+          <RatingModalComponentRatingBar>{ getReviewStars(average) }</RatingModalComponentRatingBar>
+          <RatingModalComponentRatingNumber>{ average }</RatingModalComponentRatingNumber>
+        </RatingModalComponent>
       );
     }
     average = Number(getReviewAverageForParam(param)).toFixed(1);
     return (
-      <div className="rating-mini-component">
-        <span className="mini-component-blurb">{ title }</span>
+      <RatingModalComponent>
+        <RatingModalComponentBlurb>{ title }</RatingModalComponentBlurb>
         <ReviewScoreBar param={param} />
-        <span className="mini-component-rating-number">{ average }</span>
-      </div>
+        <RatingModalComponentRatingNumber>{ average }</RatingModalComponentRatingNumber>
+      </RatingModalComponent>
     );
   };
 
   return (
-    <div className={showHide} onClick={(e) => clickHandler(e)}>
-      <div className="review-modal">
-        <div className="review-modal-close">
-          <div onClick={(e) => closeModal(e)} className="close-circle">
-            <BsX className="bs-x" size="1.25em" />
-          </div>
-        </div>
-        <div className="review-modal-body">
-          <div className="review-modal-header review-modal-spacing">Reviews</div>
-          <div className="review-modal-spacing">
-            <div className="review-modal-average">{ reviewsAverage }</div>
-            <div>{ getReviewStars(reviewsAverage) } <span className="count">({reviews.length})</span></div>
-          </div>
-          <div className="review-modal-spacing"><b>Average customer ratings</b></div>
-          <div className="review-modal-spacing">
-            <RatingMiniComponents title="Overall" param="score" />
-            <RatingMiniComponents title="Ease of assembly/installation" param="ease" />
-            <RatingMiniComponents title="Value for money" param="value" />
-            <RatingMiniComponents title="Product quality" param="quality" />
-            <RatingMiniComponents title="Appearance" param="appearance" />
-            <RatingMiniComponents title="Works as expected" param="works" />
-          </div>
+    <ModalOverlay show={show} onClick={(e) => clickHandler(e)}>
+      <ReviewModal>
+        <ReviewModalClose>
+          <ReviewModalCloseCircle onClick={(e) => closeModal(e)}>
+            <StyledBsX />
+          </ReviewModalCloseCircle>
+        </ReviewModalClose>
+        <ReviewModalBody>
+          <ReviewModalTitle>Reviews</ReviewModalTitle>
+          <ReviewModalSpacing>
+            <ReviewModalAverageScore>{ reviewsAverage }</ReviewModalAverageScore>
+            <div>
+              { getReviewStars(reviewsAverage) }
+              <Count>
+                ({ reviews.length })
+              </Count>
+            </div>
+          </ReviewModalSpacing>
+          <ReviewModalSpacing><b>Average customer ratings</b></ReviewModalSpacing>
+          <ReviewModalSpacing>
+            <RatingMiniComponent title="Overall" param="score" />
+            <RatingMiniComponent title="Ease of assembly/installation" param="ease" />
+            <RatingMiniComponent title="Value for money" param="value" />
+            <RatingMiniComponent title="Product quality" param="quality" />
+            <RatingMiniComponent title="Appearance" param="appearance" />
+            <RatingMiniComponent title="Works as expected" param="works" />
+          </ReviewModalSpacing>
 
           <div>
             {
               reviews.map((review) => <Review key={review.id} review={review} />)
             }
           </div>
-        </div>
-      </div>
-    </div>
+        </ReviewModalBody>
+      </ReviewModal>
+    </ModalOverlay>
   );
 };
 

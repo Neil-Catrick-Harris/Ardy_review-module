@@ -7,6 +7,8 @@ import {
   Route,
   useParams,
 } from 'react-router-dom';
+import styled from 'styled-components';
+import GlobalStyle from './createGlobalStyle.jsx';
 import ReviewMain from './components/ReviewMain.jsx';
 import ReviewModal from './components/ReviewModal.jsx';
 
@@ -52,7 +54,8 @@ const ReviewModule = (props) => {
   };
 
   return (
-    <div className="main">
+    <div>
+      <GlobalStyle />
       <ReviewMain reviews={reviews} showModal={showModal} />
       <ReviewModal
         show={modalIsOpen}
