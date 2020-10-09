@@ -21,8 +21,9 @@ const ReviewModal = styled.div`
   height: auto;
   position: absolute;
   right: 0;
-  transform: translate(0, 0);
+  transition: ease 300ms;
   background-color: white;
+  z-index: 5;
 `;
 
 const ReviewModalBody = styled.div`
