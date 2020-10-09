@@ -13,19 +13,19 @@ const ReviewTabTitle = styled.div`
 `;
 
 const ReviewTab = styled.div`
+  display: grid;
   align-items: center;
   border-top: 1px solid #f5f5f5;
   font-size: 16px;
-  width: 100%;
+  width: auto;
   height: auto;
-  padding: 20px 0;
+  padding: 20px;
   &:hover ${ReviewTabTitle}{
     text-decoration: underline;
   };
 `;
 
 const StyledFaAngleRight = styled(FaAngleRight)`
-  width: auto;
   float: right;
   position: relative;
   size: 1.25em;
@@ -66,8 +66,8 @@ const ReviewMain = ({ reviews = [], showModal = () => {} }) => {
           }
           )
         </Count>
+        <StyledFaAngleRight />
       </span>
-      <StyledFaAngleRight />
     </ReviewTab>
   );
 };
