@@ -41,18 +41,6 @@ const ReviewModule = (props) => {
     setIsOpen(false);
   };
 
-  const clickHandler = (event) => {
-    let targetClassName = event.target.className;
-    // svg icon className is an object, this is here to catch that edge case
-    if (typeof targetClassName === 'object') {
-      targetClassName = targetClassName.baseVal;
-    }
-
-    if (targetClassName && targetClassName.includes('display-block')) {
-      handleCloseModal();
-    }
-  };
-
   return (
     <div>
       <GlobalStyle />
@@ -61,7 +49,6 @@ const ReviewModule = (props) => {
         show={modalIsOpen}
         reviews={reviews}
         closeModal={handleCloseModal}
-        clickHandler={clickHandler}
       />
     </div>
   );
