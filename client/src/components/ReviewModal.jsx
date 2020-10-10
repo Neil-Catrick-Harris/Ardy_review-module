@@ -21,8 +21,6 @@ const ReviewModal = styled.div`
   height: auto;
   position: sticky;
   float: right;
-  transform: translateX(${(props) => props.show ? '0' : '100%'});
-  transition: all ease 300ms;
   background-color: white;
   z-index: 5;
 `;
