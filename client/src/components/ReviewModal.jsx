@@ -19,9 +19,8 @@ import {
 const ReviewModal = styled.div`
   width: 500px;
   height: auto;
-  position: absolute;
-  right: 0;
-  transition: ease 300ms;
+  position: sticky;
+  float: right;
   background-color: white;
   z-index: 5;
 `;
@@ -81,7 +80,7 @@ const ModalOverlay = styled.div`
   display: ${(props) => props.show ? 'block' : 'none'};
 `;
 
-const reviewModal = ({ reviews, show, closeModal, clickHandler }) => {
+const reviewModal = ({ reviews, show, closeModal }) => {
   const getReviewAverageForParam = (param) => {
     if (reviews.length === 0) {
       return 0;
@@ -142,8 +141,8 @@ const reviewModal = ({ reviews, show, closeModal, clickHandler }) => {
   };
 
   return (
-    <ModalOverlay show={show} onClick={(e) => clickHandler(e)}>
-      <ReviewModal>
+    <ModalOverlay show={show} onClick={(e) => closeModal(e)}>
+      <ReviewModal show={show}>
         <ReviewModalClose>
           <ReviewModalCloseCircle onClick={(e) => closeModal(e)}>
             <StyledBsX />
