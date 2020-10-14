@@ -26,6 +26,10 @@ app.get('/api/reviews/products/:productId',
     .then((result) => res.send(result))
     .catch((error) => res.send(error)));
 
+app.post('/api/products', (req, res) => {
+  res.send('balcla')
+})
+
 app.listen(port, () => { console.log(`listening on port ${port}`); });
 
 module.exports.server = app;
