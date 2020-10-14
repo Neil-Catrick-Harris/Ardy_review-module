@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
+const Review = require('./db/Review.js');
+const Response = require('./db/Response.js');
 
 dotenv.config();
 const sequelize = new Sequelize('user_reviews', `${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`, { dialect: 'mysql', dialectOptions: { multipleStatements: true } });
@@ -27,7 +29,7 @@ app.get('/api/reviews/products/:productId',
     .catch((error) => res.send(error)));
 
 app.post('/api/products', (req, res) => {
-  res.send('balcla')
+  res.send(req.body);
 })
 
 app.listen(port, () => { console.log(`listening on port ${port}`); });
