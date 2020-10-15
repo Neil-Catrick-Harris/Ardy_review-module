@@ -6,6 +6,8 @@ const dotenv = require('dotenv');
 const Review = require('./db/Review.js');
 const Response = require('./db/Response.js');
 const { getSequelizeCreateMethod } = require('./db/serverModels.js');
+const { getSequelizeDeleteMethod } = require('./db/serverModels.js');
+const { getSequelizeUpdateMethod } = require('./db/serverModels.js');
 dotenv.config();
 const sequelize = new Sequelize('user_reviews', `${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`, { dialect: 'mysql', dialectOptions: { multipleStatements: true } });
 
@@ -28,10 +30,18 @@ app.get('/api/reviews/products/:productId',
     .then((result) => res.send(result))
     .catch((error) => res.send(error)));
 
-app.post('/api/products', (req, res) => {
+app.post('/api/reviews', (req, res) => {
   res.send(getSequelizeCreateMethod());
 
 })
+
+app.delete('/api/reviews', (req, res) => {
+  res.send(getSequelizeDeleteMethod());
+})
+
+app.put('/api/reviews', (req, res) => {
+  res.send(getSequelizeUpdateMethod());
+});
 
 app.listen(port, () => { console.log(`listening on port ${port}`); });
 
