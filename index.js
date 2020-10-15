@@ -36,3 +36,4 @@ app.post('/api/products', (req, res) => {
 app.listen(port, () => { console.log(`listening on port ${port}`); });
 
 module.exports.server = app;
+module.exports.sequelize = sequelize;
