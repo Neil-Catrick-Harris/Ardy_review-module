@@ -1,7 +1,7 @@
 
-const getSequelizeMethod = function () {
-  return 'blablal';
+const getSequelizeCreateMethod = function () {
+  return 'blackck';
 }
 
-exports.getSequelizeMethod = getSequelizeMethod;
+exports.getSequelizeCreateMethod = getSequelizeCreateMethod;
 
