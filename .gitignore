@@ -2,4 +2,5 @@ node_modules
 bundle.js
 review-bundle.js
 package-lock.json
+reviews.csv
 .env
