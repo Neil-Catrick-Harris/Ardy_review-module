@@ -9,16 +9,16 @@ let recordCount = 1;
 let product_id = 1;
 
 const generateCSVData = function () {
-
+  let startTime = new Date().valueOf();
   writer.pipe(fs.createWriteStream(`${__dirname}/reviews.csv`));
-  while (recordCount < 100000) {
+  while (recordCount < 10000000) {
     let reviewCount = 0;
-    reviewCount = Math.floor(Math.random() * 21);
+    reviewCount = Math.floor(Math.random() * 12);
     if (reviewCount === 0) {
       product_id++;
-      reviewCount = Math.floor(Math.random() * 21);
+      reviewCount = Math.floor(Math.random() * 12);
     }
-    // debugger;
+
     for (let i = 0; i < reviewCount; i++) {
       let user = usernames[Math.floor(Math.random() * 8)];
       let score = Math.floor(Math.random() * 6);
@@ -32,7 +32,6 @@ const generateCSVData = function () {
       let appearance = Math.floor(Math.random() * 6);
       let works = Math.floor(Math.random() * 6);
 
-      // create write stream with above data
       writer.write({
         product_id: product_id,
         user: user,
@@ -50,23 +49,16 @@ const generateCSVData = function () {
     }
     product_id++;
     recordCount++;
-    // debugger;
   }
   writer.end();
-  console.log('data generated');
-}
+  let endTime = new Date().valueOf();
+  let totalTime = ((endTime - startTime) / 1000);
+  console.log(`Done seeding db. Finished in ${totalTime} seconds, with recs-per-sec of ${Math.round(10000000/totalTime)}`);
+};
 
-// debugger;
 generateCSVData();
-// '1, title, body, rating \n'
 
-// const file = fs.createWriteStream(`${__dirname}/example.txt`);
-// file.write('hello, ');
-// file.end('world!');
 
-// // stream
 
-// fs.writeFile(`${__dirname}/example.txt`, 'Hello World!', function (err) {
-//   if (err) return console.log(err);
-//   console.log('file was created');
-// })
+
+// let endTime = new Date().valueOf(); let totalTime = ((endTime - startTime) / 1000);  console.log(`Done seeding db of ${dataSize} records with chunks of ${chunkSize}. Finished in ${totalTime} seconds, with recs-per-sec of ${Math.round(dataSize/totalTime)}`);
