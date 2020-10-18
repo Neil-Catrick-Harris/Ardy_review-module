@@ -5,6 +5,8 @@ let writer = csvWriter();
 
 let usernames = ['bruce445', 'adam1955', 'seeul8eraligator', 'purpledragon123', 'sk8tergurl89', 'donutluver96', 'gurlpow3rrox', 'stantheman301'];
 
+let digits = [5, 3, 3, 5, 2, 1, 1, 2, 4, 2, 4];
+
 writer.pipe(fs.createWriteStream(`${__dirname}/reviews.csv`));
 
 
@@ -25,16 +27,16 @@ const generateCSVData = function (writer) {
       for (let i = 0; i < reviewCount; i++) {
         // cut out math.random (use array of 10 nums 5, 2, 3, 3, 3, 1, 4)
         let user = usernames[Math.floor(Math.random() * 8)];
-        let score = Math.floor(Math.random() * 6);
+        let score = digits[i];
         let title = faker.lorem.text();
         let body = faker.lorem.paragraph();
-        let recommend = Math.floor(Math.random() * 6);
-        let date = new Date(2019, Math.floor(Math.random() * 12), Math.floor(Math.random() * 29));
-        let ease = Math.floor(Math.random() * 6);
-        let value = Math.floor(Math.random() * 6);
-        let quality = Math.floor(Math.random() * 6);
-        let appearance = Math.floor(Math.random() * 6);
-        let works = Math.floor(Math.random() * 6);
+        let recommend = digits[i];
+        let date = faker.date.recent();
+        let ease = digits[i];
+        let value = digits[i];
+        let quality = digits[i];
+        let appearance = digits[i];
+        let works = digits[i];
 
         if (recordCount === 0 && i === reviewCount - 1) {
           writer.write({
@@ -112,6 +114,6 @@ generateCSVData(writer);
 //   }
 // }
 
-bash cat less
+// bash cat less
 
-give only first 10 lines of csv file
+// give only first 10 lines of csv file
