@@ -1,79 +1,55 @@
 const fs = require('fs');
 const faker = require('faker');
-const csvWriter = require('csv-write-stream');
-let writer = csvWriter();
 
 let usernames = ['bruce445', 'adam1955', 'seeul8eraligator', 'purpledragon123', 'sk8tergurl89', 'donutluver96', 'gurlpow3rrox', 'stantheman301'];
 
 let digits = [5, 3, 3, 5, 2, 1, 1, 2, 4, 2, 4];
+let digits2 = [2, 4, 1, 2, 5, 3, 4, 5, 1, 3, 4];
 
-writer.pipe(fs.createWriteStream(`${__dirname}/reviews.csv`));
+let startTime = new Date().valueOf();
+const writer = fs.createWriteStream(`${__dirname}/reviews.csv`);
+writer.write('product_id,user,score,title,body,recommend,date,ease,value,quality,apperance,works\n', 'utf8');
 
+const generateCSVData = function (writer, encoding, callback) {
 
-const generateCSVData = function (writer) {
-
-  let recordCount = 1000000;
+  let recordCount = 100000;
   let product_id = 1;
   writeFunction();
   function writeFunction () {
-    let startTime = new Date().valueOf();
     let ok = true;
     do {
       recordCount -= 1;
       product_id += 1;
-      let reviewCount = 0;
-      reviewCount = Math.ceil(Math.random() * 12);
+      let reviewCount = 12;
 
-      for (let i = 0; i < reviewCount; i++) {
-        // cut out math.random (use array of 10 nums 5, 2, 3, 3, 3, 1, 4)
-        let user = usernames[Math.floor(Math.random() * 8)];
-        let score = digits[i];
-        let title = faker.lorem.text();
-        let body = faker.lorem.paragraph();
-        let recommend = digits[i];
-        let date = faker.date.recent();
-        let ease = digits[i];
-        let value = digits[i];
-        let quality = digits[i];
-        let appearance = digits[i];
-        let works = digits[i];
+      function createCSVString (reviewCount) {
+        let csvString;
+        for (let i = 0; i < reviewCount; i++) {
+          let user = usernames[Math.floor(Math.random() * 8)];
+          let score = digits[i];
+          let title = faker.random.words();
+          let body = 'body for review regarding reviews about mykea product and how I need nice furniture and for my new apartment that is needed to make it look nice';
+          let recommend = digits2[i];
+          let date = faker.date.recent();
+          let ease = digits[i];
+          let value = digits2[i];
+          let quality = digits[i];
+          let appearance = digits2[i];
+          let works = digits[i];
 
-        if (recordCount === 0 && i === reviewCount - 1) {
-          writer.write({
-            product_id: product_id,
-            user: user,
-            score: score,
-            title: title,
-            body: body,
-            recommend: recommend,
-            date: date,
-            ease: ease,
-            value: value,
-            quality: quality,
-            appearance: appearance,
-            works: works
-          })
-          writer.end();
-          let endTime = new Date().valueOf();
-          let totalTime = ((endTime - startTime) / 1000);
-          console.log(`Done seeding db. Finished in ${totalTime} seconds, with recs-per-sec of ${Math.round(10000000/totalTime)}`);
-
-        } else {
-          ok = writer.write({
-            product_id: product_id,
-            user: user,
-            score: score,
-            title: title,
-            body: body,
-            recommend: recommend,
-            date: date,
-            ease: ease,
-            value: value,
-            quality: quality,
-            appearance: appearance,
-            works: works
-          })
+          if (!csvString) {
+            csvString = `${product_id},${user},${score},${title},${body},${recommend},${date},${ease},${value},${quality},${appearance},${works}\n`;
+          } else {
+            csvString += `${product_id},${user},${score},${title},${body},${recommend},${date},${ease},${value},${quality},${appearance},${works}\n`;
+          }
         }
+        return csvString;
+      }
+      let data = `${createCSVString(reviewCount)}`;
+      if (recordCount === 0) {
+        writer.write(data, encoding, callback)
+      } else {
+        ok = writer.write(data, encoding);
       }
 
     } while (recordCount > 0 && ok);
@@ -83,37 +59,9 @@ const generateCSVData = function (writer) {
   }
 };
 
-generateCSVData(writer);
-
-
-
-
-// let endTime = new Date().valueOf(); let totalTime = ((endTime - startTime) / 1000);  console.log(`Done seeding db of ${dataSize} records with chunks of ${chunkSize}. Finished in ${totalTime} seconds, with recs-per-sec of ${Math.round(dataSize/totalTime)}`);
-
-// function writeOneMillionTimes(writer, data, encoding, callback) {
-//   let i = 1000000;
-//   write();
-//   function write() {
-//     let ok = true;
-//     do {
-//       i--;
-//       if (i === 0) {
-//         // Last time!
-//         writer.write(data, encoding, callback);
-//       } else {
-//         // See if we should continue, or wait.
-//         // Don't pass the callback, because we're not done yet.
-//         ok = writer.write(data, encoding);
-//       }
-//     } while (i > 0 && ok);
-//     if (i > 0) {
-//       // Had to stop early!
-//       // Write some more once it drains.
-//       writer.once('drain', write);
-//     }
-//   }
-// }
-
-// bash cat less
-
-// give only first 10 lines of csv file
+generateCSVData(writer, 'utf-8', () => {
+  writer.end();
+  let endTime = new Date().valueOf();
+  let totalTime = ((endTime - startTime) / 1000);
+  console.log(`Done seeding db. Finished in ${totalTime} seconds, with recs-per-sec of ${Math.round(10000000/totalTime)}`);
+});

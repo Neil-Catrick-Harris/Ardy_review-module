@@ -2,5 +2,6 @@ node_modules
 bundle.js
 review-bundle.js
 package-lock.json
+.DS_Store
 reviews.csv
 .env
