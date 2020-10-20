@@ -3,10 +3,10 @@ const faker = require('faker');
 
 let usernames = ['bruce445', 'adam1955', 'seeul8eraligator', 'purpledragon123', 'sk8tergurl89', 'donutluver96', 'gurlpow3rrox', 'stantheman301'];
 
-let titles = ['love ikea furniture', 'nice table but hard assembly', 'love hosting dinner parties with this dining set', 'needed a new lamp and this one works', 'arrived broken out of the box', 'the wood is chipping already', 'so for so good!', 'if you are looking for a comfy arm chair this is it!', 'makes our living room look good', 'Cheap quality do not buy!', 'awesome chair!'];
+let titles = ['love ikea furniture', 'nice table but hard assembly', 'love hosting dinner parties with this dining set', 'needed a new lamp and this one works', 'arrived broken out of the box', 'the wood is chipping already', 'so for so good!', 'if you are looking for a comfy arm chair this is it!', 'makes our living room look good', 'Cheap quality do not buy!', 'awesome chair!', 'dissappointed with my purchase'];
 
-let digits = [5, 3, 3, 5, 2, 1, 1, 2, 4, 2, 4];
-let digits2 = [2, 4, 1, 2, 5, 3, 4, 5, 1, 3, 4];
+let digits = [5, 3, 3, 5, 2, 1, 1, 2, 4, 2, 4, 4];
+let digits2 = [2, 4, 1, 2, 5, 3, 4, 5, 1, 3, 4, 3];
 
 let startTime = new Date().valueOf();
 const writer = fs.createWriteStream(`${__dirname}/reviews.csv`);

@@ -1,1 +1,1 @@
-\copy reviews (id, product_id, user, score, title, body, recommend, review_date, ease, product_value, quality, appearace, works) FROM '/Users/ncg8/Documents/review/db/reviews.csv' DELIMITER ',' CSV HEADER;
+\copy reviews (product_id, _user, score, title, body, recommend, review_date, ease, product_value, quality, appearance, works) FROM '/Users/ncg8/Documents/review/db/reviews.csv' DELIMITER ',' CSV HEADER;

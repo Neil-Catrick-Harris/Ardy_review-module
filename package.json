@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest",
     "start": "nodemon server/index.js",
-    "dbcreate": "psql postgres -U postgres < ./db/postgreSQL/postgresSchema.sql",
+    "gen:reviews": "node db/dataGeneration.js",
+    "pg:db:create": "psql postgres -U postgres < ./db/postgreSQL/postgresSchema.sql",
+    "pg:db:seed": "psql postgres -U postgres -d reviews_module < ./db/postgreSQL/postgresSeed.sql",
     "build": "webpack -d --watch"
   },
   "repository": {

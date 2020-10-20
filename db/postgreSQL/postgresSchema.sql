@@ -6,7 +6,6 @@ CREATE DATABASE reviews_module;
 \c reviews_module;
 
 CREATE TABLE IF NOT EXISTS reviews (
-  id SERIAL PRIMARY KEY,
   product_id INT,
   _user VARCHAR(100),
   score INT,
