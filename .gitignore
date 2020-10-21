@@ -3,6 +3,6 @@ bundle.js
 review-bundle.js
 package-lock.json
 .DS_Store
-reviews.csv
+db/reviews.csv
 .env
 .vscode
