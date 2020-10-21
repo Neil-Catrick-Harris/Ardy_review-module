@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest",
     "start": "nodemon server/index.js",
-    "seed": "node db/index.js && node db/seed.js",
+    "gen:reviews": "node db/dataGeneration.js",
+    "pg:db:create": "psql postgres -U postgres < ./db/postgreSQL/postgresSchema.sql",
+    "pg:db:seed": "psql postgres -U postgres -d reviews_module < ./db/postgreSQL/postgresSeed.sql",
     "build": "webpack -d --watch"
   },
   "repository": {
@@ -33,6 +35,8 @@
     "moment": "^2.29.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
+    "pg": "^8.4.1",
+    "pg-hstore": "^2.3.3",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
