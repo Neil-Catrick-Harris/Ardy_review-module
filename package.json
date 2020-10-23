@@ -9,7 +9,10 @@
     "gen:reviews": "node db/dataGeneration.js",
     "pg:db:create": "psql postgres -U postgres < ./db/postgreSQL/postgresSchema.sql",
     "pg:db:seed": "psql postgres -U postgres -d reviews_module < ./db/postgreSQL/postgresSeed.sql",
-    "build": "webpack -d --watch"
+    "build": "webpack -d --watch",
+    "cass:db:create": "cqlsh --file=\"/Users/ncg8/Documents/review/db/cassandra/createCassDb.cql\"",
+    "cass:tbl:create": "cqlsh --file=\"/Users/ncg8/Documents/review/db/cassandra/createCassTable.cql\"",
+    "cass:tbl:seed": "cqlsh --file=\"/Users/ncg8/Documents/review/db/cassandra/seedCassDb.cql\""
   },
   "repository": {
     "type": "git",
