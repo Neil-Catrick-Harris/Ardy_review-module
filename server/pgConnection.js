@@ -4,4 +4,5 @@ const sequelize = new Sequelize('reviews_module', 'ncg8', '', {
   host: 'localhost',
   logging: false
 })
-debugger;
+
+module.exports = sequelize;

@@ -1,5 +1,5 @@
-const { sequelize } = require('../index.js');
-
+const sequelize = require('../server/pgConnection.js');
+debugger;
 
 const sequelizeCreate = function () {
   return 'created New Review';
