@@ -1,5 +1,5 @@
 const sequelize = require('../server/pgConnection.js');
-debugger;
+
 
 const sequelizeRead = function () {
   return 'read New Review';
