@@ -5,9 +5,10 @@ const Sequelize = require('sequelize');
 const dotenv = require('dotenv');
 const Review = require('./db/Review.js');
 const Response = require('./db/Response.js');
-const { getSequelizeCreateMethod } = require('./db/serverModels.js');
-const { getSequelizeDeleteMethod } = require('./db/serverModels.js');
-const { getSequelizeUpdateMethod } = require('./db/serverModels.js');
+const NewRelic = require('newrelic');
+const { getSequelizeCreateMethod } = require('./db/dbMethodsRouter.js');
+const { getSequelizeDeleteMethod } = require('./db/dbMethodsRouter.js');
+const { getSequelizeUpdateMethod } = require('./db/dbMethodsRouter.js');
 dotenv.config();
 const sequelize = new Sequelize('user_reviews', `${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`, { dialect: 'mysql', dialectOptions: { multipleStatements: true } });
 
@@ -30,8 +31,8 @@ app.get('/api/reviews/products/:productId',
     .then((result) => res.send(result))
     .catch((error) => res.send(error)));
 
-app.post('/api/reviews', (req, res) => {
-  res.send(getSequelizeCreateMethod());
+app.post('/api/reviews/products/:productId', (req, res) => {
+  res.send(req.body);
 
 })
 
