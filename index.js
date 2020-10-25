@@ -9,6 +9,8 @@ const NewRelic = require('newrelic');
 const { getSequelizeCreateMethod } = require('./db/dbMethodsRouter.js');
 const { getSequelizeDeleteMethod } = require('./db/dbMethodsRouter.js');
 const { getSequelizeUpdateMethod } = require('./db/dbMethodsRouter.js');
+const { getSequelizeReadMethod } = require('./db/dbMethodsRouter.js');
+debugger;
 dotenv.config();
 const sequelize = new Sequelize('user_reviews', `${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`, { dialect: 'mysql', dialectOptions: { multipleStatements: true } });
 
@@ -30,6 +32,12 @@ app.get('/api/reviews/products/:productId',
   (req, res) => sequelize.query(`SELECT * FROM reviews WHERE product_id = ${req.param('productId')} ORDER BY date DESC`, { type: Sequelize.QueryTypes.SELECT })
     .then((result) => res.send(result))
     .catch((error) => res.send(error)));
+
+app.get('/api/reviews/routerTest', (req, res) => {
+  getSequelizeReadMethod
+    .then((result) => res.send(result))
+    .catch((error) => res.send(error));
+});
 
 app.post('/api/reviews/products/:productId', (req, res) => {
   res.send(req.body);

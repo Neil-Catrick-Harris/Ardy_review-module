@@ -3,9 +3,9 @@ const { sequelizeCreate } = require('./Sequelize.js');
 const { sequelizeDelete } = require('./Sequelize.js');
 const { sequelizeUpdate } = require('./Sequelize.js');
 
-const getSequelizeReadMethod = function () {
-  return sequelizeRead();
-}
+const getSequelizeReadMethod = new Promise((res, rej) => {
+  res(sequelizeRead());
+})
 
 const getSequelizeCreateMethod = function () {
   return sequelizeCreate();
@@ -22,4 +22,5 @@ const getSequelizeUpdateMethod = function () {
 exports.getSequelizeCreateMethod = getSequelizeCreateMethod;
 exports.getSequelizeDeleteMethod = getSequelizeDeleteMethod;
 exports.getSequelizeUpdateMethod = getSequelizeUpdateMethod;
+exports.getSequelizeReadMethod = getSequelizeReadMethod;
 

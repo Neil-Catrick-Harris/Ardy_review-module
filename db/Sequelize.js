@@ -1,12 +1,11 @@
 const sequelize = require('../server/pgConnection.js');
 
-
 const sequelizeRead = function () {
   return 'read New Review';
 }
 
 const sequelizeCreate = function () {
-  return 'created New Review';
+  return
 }
 
 const sequelizeDelete = function () {
