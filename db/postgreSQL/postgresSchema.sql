@@ -20,3 +20,5 @@ CREATE TABLE IF NOT EXISTS reviews (
   appearance INT,
   works INT
 );
+
+CREATE INDEX product_id ON reviews (product_id);
