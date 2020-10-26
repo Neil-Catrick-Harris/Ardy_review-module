@@ -28,20 +28,20 @@ app.use((req, res, next) => {
 
 app.get('/products/*', (req, res) => { res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html')); });
 
-app.get('/api/reviews/products/:productId',
-  (req, res) => sequelize.query(`SELECT * FROM reviews WHERE product_id = ${req.param('productId')} ORDER BY date DESC`, { type: Sequelize.QueryTypes.SELECT })
-    .then((result) => res.send(result))
-    .catch((error) => res.send(error)));
-
-app.get('/api/reviews/routerTest', (req, res) => {
-  getSequelizeReadMethod
-    .then((result) => res.send(result))
+app.get('/api/reviews/products/:productId', (req, res) => {
+  const beginningTime = new Date().valueOf();
+  getSequelizeReadMethod(req.params.productId)
+    .then((result) => {
+      const endingTime = new Date().valueOf();
+      console.log('Query time: ', (endingTime - beginningTime) / 1000);
+      res.send(result)
+    })
     .catch((error) => res.send(error));
 });
 
 app.post('/api/reviews/products/:productId', (req, res) => {
-  res.send(req.body);
 
+  res.send(req.body);
 })
 
 app.delete('/api/reviews', (req, res) => {

@@ -1,7 +1,10 @@
 const sequelize = require('../server/pgConnection.js');
 
 const sequelizeRead = function () {
-  return 'read New Review';
+  sequelize.query(`SELECT * FROM reviews WHERE product_id = 1`, {raw: true})
+    .then((results) => {
+      return results;
+    })
 }
 
 const sequelizeCreate = function () {
