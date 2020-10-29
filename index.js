@@ -40,8 +40,12 @@ app.get('/api/reviews/products/:productId', (req, res) => {
 });
 
 app.post('/api/reviews/products/:productId', (req, res) => {
-
-  res.send(req.body);
+  const beginningTime = new Date().valueOf();
+  getSequelizeCreateMethod(req.body)
+    .then((result) => {
+      res.send(results);
+    })
+    .catch((error) => res.send(error));
 })
 
 app.delete('/api/reviews', (req, res) => {

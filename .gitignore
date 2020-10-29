@@ -6,3 +6,4 @@ package-lock.json
 reviews.csv
 .env
 newrelic.js
+SDCKeyPair.pem.txt
